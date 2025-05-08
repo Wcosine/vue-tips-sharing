@@ -7,7 +7,8 @@ const defaultFormValue = {
   lower: 4,
   symbol: 2,
   number: 2
-}
+} 
+  //如果長度是使用者自行決定的話，此時的length會是''嗎?
 
 // ＃表單資料重置邏輯說明：為什麼使用 {...defaultFormValue} 而不是直接指派 = defaultFormValue？
 /*
@@ -163,6 +164,8 @@ watch(form, () => {
     hint.value = ''
   }
 }, { deep: true })
+  //這裡的{ deep: true } 是在監聽 form.value嗎? 是因為length會變化嗎?
+  //還是因為defaultFormValue代出的是物件，只要更改任何一個值，都算深層的修改
 
 const generatePassword = () => {
   const { length, upper, lower, symbol, number } = form.value;  // 參考：詳解1
@@ -170,6 +173,8 @@ const generatePassword = () => {
 
   if (hint.value) {
     alert(`密碼設定長度 ${length}，但規則需求長度 ${minRequired}。請重新確認。`);
+    //這個 alert是什麼時候會出現? 因為預設長度是12時，就算資料加起來只有10，也可以生成密碼
+    //如果長度小於資料的值則會出現這句 `X 規則需求總長 ${minRequired} 已超過設定長度 ${length}` 則按鈕失效，無法觸擊
     return;
   }
 
